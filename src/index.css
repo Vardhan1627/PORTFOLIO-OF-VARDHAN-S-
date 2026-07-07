@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 40% 6%;
+    --foreground: 220 25% 96%;
+
+    --card: 230 35% 9%;
+    --card-foreground: 220 25% 96%;
+
+    --popover: 230 35% 9%;
+    --popover-foreground: 220 25% 96%;
+
+    --primary: 220 90% 60%;
+    --primary-foreground: 220 25% 98%;
+    --primary-glow: 260 85% 65%;
+
+    --secondary: 260 70% 55%;
+    --secondary-foreground: 220 25% 98%;
+
+    --muted: 230 25% 15%;
+    --muted-foreground: 220 15% 65%;
+
+    --accent: 190 90% 55%;
+    --accent-foreground: 230 40% 8%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 220 25% 98%;
+
+    --border: 230 25% 18%;
+    --input: 230 25% 15%;
+    --ring: 220 90% 60%;
+
+    --radius: 0.85rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(220 90% 60%), hsl(260 85% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 90% 55% / 0.15), hsl(260 85% 60% / 0.15));
+    --gradient-text: linear-gradient(135deg, hsl(220 90% 70%), hsl(260 85% 75%), hsl(190 90% 65%));
+    --gradient-radial: radial-gradient(ellipse at top, hsl(260 85% 25% / 0.6), transparent 60%);
+
+    --shadow-glow: 0 20px 60px -20px hsl(220 90% 60% / 0.5);
+    --shadow-card: 0 10px 40px -15px hsl(260 85% 40% / 0.35);
+    --shadow-soft: 0 4px 20px -4px hsl(230 40% 4% / 0.4);
+
+    --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-image: var(--gradient-radial);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-border/60;
+    box-shadow: var(--shadow-card);
+  }
+  .glow-border {
+    position: relative;
+  }
+  .glow-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .glow-border:hover::before {
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .animate-fade-up {
+    animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out both;
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
